@@ -42,6 +42,9 @@
 			"@pages/*": [
 				"src/pages/*"
 			],
+			"@assets/*": [
+				"src/assets/*"
+			],
 		},
 	},
 	"include": [
