@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
-import Dashboard from '@pages/Dashboard/Dashboard'
+import Dashboard from '$pages/Dashboard/Dashboard'
 import './App.css'
 
 function App() {

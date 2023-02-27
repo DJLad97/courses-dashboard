@@ -1,6 +1,6 @@
-import IconText from "@molecules/IconText";
-import user from "@assets/icons/user.png"
-import exit from "@assets/icons/exit.png"
+import IconText from "$molecules/IconText";
+import user from "$assets/icons/user.png"
+import exit from "$assets/icons/exit.png"
 
 function NavbarUserActions () {
     return (

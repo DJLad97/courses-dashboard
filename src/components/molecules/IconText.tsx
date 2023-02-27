@@ -1,4 +1,4 @@
-import Icon from "@atoms/Icon";
+import Icon from "$atoms/Icon";
 
 interface Props {
     text: string | number;

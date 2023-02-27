@@ -1,8 +1,8 @@
-import IconText from "@molecules/IconText";
-import dashboard from "@assets/icons/dashboard.png"
-import courses from "@assets/icons/SupervisedUserCircle.png"
-import library from "@assets/icons/library.png"
-import info from "@assets/icons/info.png"
+import IconText from "$molecules/IconText";
+import dashboard from "$assets/icons/dashboard.png"
+import courses from "$assets/icons/SupervisedUserCircle.png"
+import library from "$assets/icons/library.png"
+import info from "$assets/icons/info.png"
 
 function SidebarNavItems () {
     return (

@@ -21,28 +21,25 @@
 		"jsx": "react-jsx",
 		"baseUrl": ".",
 		"paths": {
-			"@/*": [
-				"./*"
-			],
-			"@types/*": [
+			"$types/*": [
 				"src/types/*"
 			],
-			"@atoms/*": [
+			"$atoms/*": [
 				"src/components/atoms/*"
 			],
-			"@molecules/*": [
+			"$molecules/*": [
 				"src/components/molecules/*"
 			],
-			"@organisms/*": [
+			"$organisms/*": [
 				"src/components/organisms/*"
 			],
-			"@templates/*": [
+			"$templates/*": [
 				"src/components/templates/*"
 			],
-			"@pages/*": [
+			"$pages/*": [
 				"src/pages/*"
 			],
-			"@assets/*": [
+			"$assets/*": [
 				"src/assets/*"
 			],
 		},
