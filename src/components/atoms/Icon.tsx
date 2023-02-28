@@ -1,4 +1,4 @@
-interface Props {
+type Props = {
     src: string;
     width?: number;
     height?: number;

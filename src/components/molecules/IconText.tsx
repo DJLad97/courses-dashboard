@@ -1,10 +1,10 @@
 import Icon from "$atoms/Icon";
 import { IconPosition } from "$types/General";
-interface Props {
+type Props = {
     children: string | number | React.ReactElement;
     iconSrc: string;
     iconAltText?: string;
-    iconPosition?: IconPosition
+    iconPosition?: IconPosition;
 }
 
 function IconText ({ children, iconSrc, iconAltText = "", iconPosition = IconPosition.LEFT}: Props) {

@@ -1,4 +1,4 @@
-export interface FilterProps {
+export type FilterProps = {
     text: string;
     active: boolean;
 }

@@ -1,6 +1,9 @@
+import { useEffect, useState, useCallback } from 'react';
 import TrainingCourses from '$templates/TrainingCourses';
 import Header from '$organisms/Header';
 import Sidebar from '$organisms/Sidebar';
+import { getCourses } from '$lib/api';
+import { Course } from '$types/Courses';
 
 function Dashboard () {
     return (

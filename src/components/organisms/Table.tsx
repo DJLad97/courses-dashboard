@@ -5,11 +5,12 @@ import chevronDown from "$assets/icons/chevron-down.png"
 import generateTableData from "$lib/TableGeneration";
 import { useState } from "react";
 
-interface Props {
+type Props = {
     data: Array<DataType> | undefined;
+    loadMore: () => void;
 }
 
-function Table ({ data }: Props) {
+function Table ({ data, loadMore }: Props) {
     const [noData, setNoData] = useState(false);
 
     const generateData = () => {
@@ -44,7 +45,7 @@ function Table ({ data }: Props) {
             <div className="flex justify-center py-12">
                 <span className="cursor-pointer flex gap-2 text-primary-800">
                     <IconText iconSrc={chevronDown} iconPosition={IconPosition.RIGHT}>
-                        Load More
+                        <span onClick={() => loadMore()}>Load More</span>
                     </IconText>
                 </span>
             </div>

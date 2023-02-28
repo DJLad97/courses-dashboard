@@ -2,7 +2,7 @@ import { FilterProps } from "$types/Filters";
 
 function FilterTypes ({ text, active = false }: FilterProps) {
     return (
-        <div className="min-w-[164px]">
+        <div className="min-w-[164px] cursor-pointer">
             <div className={`
                 ${active ?
                     'text-neutral-900 ' :

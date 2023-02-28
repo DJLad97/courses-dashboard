@@ -1,4 +1,4 @@
-interface Props {
+type Props = {
     children: string | number;
 }
 function TableHeader ({ children }: Props) {

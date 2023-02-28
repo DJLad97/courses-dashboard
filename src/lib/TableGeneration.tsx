@@ -6,6 +6,10 @@ import { IconPosition } from '$types/General';
 import diagonalUp from "$assets/icons/diagonal-up.png"
 
 export default function generateTableData (data: Array<DataType>): Array<React.ReactElement> | undefined {
+    if (!data.length) {
+        return;
+    }
+
     if ((data as Array<Course>)[0].course_id !== undefined) {
         return generateCourses(data as Array<Course>);
     }
@@ -14,7 +18,7 @@ export default function generateTableData (data: Array<DataType>): Array<React.R
 function generateCourses (courses: Array<Course>): Array<React.ReactElement> {
     return courses.map((course) => {
         return (
-            <tr>
+            <tr key={course.id}>
                 <TableData additionalClasses="font-semibold">{ new DOMParser().parseFromString(course.name, "text/html").body.textContent || ""}</TableData>
                 <TableData>{ course.id }</TableData>
                 <TableData>{ course.price }</TableData>

@@ -7,6 +7,7 @@ function FilterPill ({ text, active = false }: FilterProps) {
             rounded-3xl
             py-1 px-3
             cursor-pointer
+            select-none
         `}>
             { text }
         </span>
