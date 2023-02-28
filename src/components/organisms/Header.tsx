@@ -5,7 +5,7 @@ import NavbarSearch from '$molecules/NavbarSearch';
 
 function Header () {
     return (
-        <div className="bg-white flex justify-between py-4 px-6 shadow-xl">
+        <div className="bg-white flex justify-between py-4 px-6 shadow-2xl">
             <div>
                 <img src={logo} alt="" />
             </div>

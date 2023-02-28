@@ -8,7 +8,12 @@ function Dashboard () {
             <Header />
             <div className="flex">
                 <Sidebar />
-                <TrainingCourses />
+                <div className="bg-neutral-100 w-full">
+                    <TrainingCourses />
+                </div>
+            </div>
+            <div className="bg-neutral-200">
+                {/* footer */}
             </div>
         </>
     )

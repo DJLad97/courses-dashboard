@@ -10,6 +10,7 @@ export default defineConfig({
 			"$pages": path.resolve(__dirname, "./src/pages"),
 			"$types": path.resolve(__dirname, "./src/types"),
 			"$assets": path.resolve(__dirname, "./src/assets"),
+			"$lib": path.resolve(__dirname, "./src/lib"),
 			"$atoms": path.resolve(__dirname, "./src/components/atoms"),
 			"$molecules": path.resolve(__dirname, "./src/components/molecules"),
 			"$organisms": path.resolve(__dirname, "./src/components/organisms"),

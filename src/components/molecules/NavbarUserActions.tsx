@@ -6,10 +6,14 @@ function NavbarUserActions () {
     return (
         <>
             <div className="flex text-neutral-600 mr-7">
-                <IconText text="My Account" iconSrc={user} iconAltText="user-icon"/>
+                <IconText iconSrc={user} iconAltText="user-icon">
+                    My Account
+                </IconText>
             </div>
             <div className="flex text-neutral-600">
-                <IconText text="Logout" iconSrc={exit} iconAltText="exit-icon"/>
+                <IconText iconSrc={exit} iconAltText="exit-icon">
+                    Logout
+                </IconText>
             </div>
         </>
     )
