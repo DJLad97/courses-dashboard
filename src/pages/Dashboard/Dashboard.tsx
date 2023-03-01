@@ -1,10 +1,7 @@
-import { useEffect, useState, useCallback } from 'react';
-import TrainingCourses from '$templates/TrainingCourses';
-import Header from '$organisms/Header';
-import Sidebar from '$organisms/Sidebar';
-import { getCourses } from '$lib/api';
-import { Course } from '$types/Courses';
-import Footer from '$organisms/Footer';
+import TrainingCourses from "$templates/TrainingCourses";
+import Header from "$organisms/Header";
+import Sidebar from "$organisms/Sidebar";
+import Footer from "$organisms/Footer";
 
 function Dashboard () {
     return (
@@ -17,7 +14,6 @@ function Dashboard () {
                 </div>
             </div>
             <div className="bg-neutral-200">
-                {/* footer */}
                 <Footer />
             </div>
         </>

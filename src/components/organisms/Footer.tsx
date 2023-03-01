@@ -1,7 +1,3 @@
-import logo from '$assets/icons/Parallax_logo.png'
-import NavbarUserActions from '$molecules/NavbarUserActions';
-import NavbarSearch from '$molecules/NavbarSearch';
-
 function Footer () {
     return (
         <div className="flex gap-7 bg-neutral-100 justify-end pb-7 pr-10">

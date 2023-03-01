@@ -5,8 +5,8 @@ function FilterTypes ({ text, active = false }: FilterProps) {
         <div className="min-w-[164px] cursor-pointer">
             <div className={`
                 ${active ?
-                    'text-neutral-900 ' :
-                    'text-neutral-300 ' }
+                    "text-neutral-900 " :
+                    "text-neutral-300 " }
                 flex flex-col gap-y-1
                 border-spacing-1.5
                 `}
@@ -14,8 +14,8 @@ function FilterTypes ({ text, active = false }: FilterProps) {
                 { text }
                 <span className={`
                     ${active ?
-                    'border-b-2 border-b-neutral-900' :
-                    'border-b-2 border-b-neutral-300' }
+                    "border-b-2 border-b-neutral-900" :
+                    "border-b-2 border-b-neutral-300" }
                 min-w-[164px]`} />
             </div>
         </div>

@@ -1,4 +1,4 @@
-import { CommonData } from './../types/Courses';
+import { CommonData } from "$types/Courses";
 import { format } from "date-fns";
 
 export function formatDate (date: string) {

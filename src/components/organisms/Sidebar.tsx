@@ -1,4 +1,4 @@
-import SidebarNavItems from '../molecules/SidebarNavItems';
+import SidebarNavItems from "$molecules/SidebarNavItems";
 
 function Sidebar () {
     return (

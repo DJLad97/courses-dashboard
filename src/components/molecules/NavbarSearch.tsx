@@ -1,4 +1,4 @@
-import searchIcon from '$assets/icons/search.png'
+import searchIcon from "$assets/icons/search.png"
 
 function NavbarSearch () {
     return (

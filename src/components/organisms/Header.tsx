@@ -1,6 +1,6 @@
-import logo from '$assets/icons/Parallax_logo.png'
-import NavbarUserActions from '$molecules/NavbarUserActions';
-import NavbarSearch from '$molecules/NavbarSearch';
+import logo from "$assets/icons/Parallax_logo.png"
+import NavbarUserActions from "$molecules/NavbarUserActions";
+import NavbarSearch from "$molecules/NavbarSearch";
 
 function Header () {
     return (

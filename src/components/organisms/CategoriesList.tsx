@@ -1,6 +1,6 @@
 import { Category } from "$types/Courses"
 import cog from "$assets/icons/cog.png"
-import Card from '$molecules/Card';
+import Card from "$molecules/Card";
 
 type Props = {
     categories: Array<Category>

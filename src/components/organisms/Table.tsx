@@ -1,9 +1,8 @@
 import TableHeader from "$atoms/TableHeader";
-import IconText from '$molecules/IconText';
-import { DataType, IconPosition } from '$types/General';
+import IconText from "$molecules/IconText";
+import { DataType, IconPosition } from "$types/General";
 import chevronDown from "$assets/icons/chevron-down.png"
 import generateTableData from "$lib/TableGeneration";
-import { useState } from "react";
 
 type Props = {
     data: Array<DataType> | undefined;
@@ -12,8 +11,6 @@ type Props = {
 }
 
 function Table ({ data, loadMore, lastPageReached }: Props) {
-    const [noData, setNoData] = useState(false);
-
     const generateData = () => {
         if (data !== undefined) {
             return generateTableData(data);

@@ -1,23 +1,21 @@
+import { useRef, useState } from "react";
 import FilterPill from "$atoms/FilterPill";
 import FilterTypes from "$atoms/FilterTypes";
 import { useEffectAfterMount } from "$lib/hooks";
-import { Category, FilteredCoursesRequest, Location } from "$types/Courses";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { Category, Location } from "$types/Courses";
 
 type Props = {
-    requestData: FilteredCoursesRequest;
     categories: Array<Category>;
     locations: Array<Location>;
-    searchWithFilters: () => void;
     buildReqestData: (activeCategories: Array<number>, activeLocations: Array<number>) => void;
 }
 
 enum FilterType {
-    CATEGORY = 'category',
-    LOCATION = 'location'
+    CATEGORY = "category",
+    LOCATION = "location"
 }
 
-function Filters ({ requestData, categories, locations, searchWithFilters, buildReqestData }: Props) {
+function Filters ({ categories, locations, buildReqestData }: Props) {
     const [activeCategories, setActiveCategories] = useState<Array<number>>([])
     const [activeLocations, setActiveLocations] = useState<Array<number>>([])
     const [activeFilterType, setActiveFilterType] = useState<FilterType>(FilterType.CATEGORY)
@@ -59,29 +57,6 @@ function Filters ({ requestData, categories, locations, searchWithFilters, build
         }
     }
 
-    // const buildReqestData = () => {
-    //     const categoriesList: Array<string> = [];
-    //     const locationsList: Array<string> = [];
-
-    //     categories.forEach((category) => {
-    //         if (activeCategories.includes(category.id)) {
-    //             categoriesList.push(category.slug);
-    //         }
-    //     });
-
-    //     locations.forEach((location) => {
-    //         if (activeLocations.includes(location.id)) {
-    //             locationsList.push(location.slug);
-    //         }
-    //     });
-
-    //     setRequestData({
-    //         categories: categoriesList,
-    //         locations: locationsList
-    //     });
-    // }
-
-
     return (
         <>
             <div className="flex gap-5 mb-6">
@@ -92,10 +67,10 @@ function Filters ({ requestData, categories, locations, searchWithFilters, build
                     <FilterTypes text="Location" active={activeFilterType === FilterType.LOCATION} />
                 </div>
             </div>
-            <div className={`flex gap-2 ${activeFilterType !== FilterType.CATEGORY ? 'hidden' : ''}` }>
+            <div className={`flex gap-2 ${activeFilterType !== FilterType.CATEGORY ? "hidden" : ""}` }>
                 { buildCategories() }
             </div>
-            <div className={`flex gap-2 ${activeFilterType !== FilterType.LOCATION ? 'hidden' : ''}` }>
+            <div className={`flex gap-2 ${activeFilterType !== FilterType.LOCATION ? "hidden" : ""}` }>
                 { buildLocations() }
             </div>
         </>

@@ -1,8 +1,8 @@
 import { Course } from "$types/Courses"
 import { DataType } from "$types/General"
 import TableData from "$atoms/TableData";
-import IconText from '$molecules/IconText';
-import { IconPosition } from '$types/General';
+import IconText from "$molecules/IconText";
+import { IconPosition } from "$types/General";
 import diagonalUp from "$assets/icons/diagonal-up.png"
 import { formatDate } from "$lib/helpers";
 

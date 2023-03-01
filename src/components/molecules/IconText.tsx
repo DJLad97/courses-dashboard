@@ -1,5 +1,6 @@
 import Icon from "$atoms/Icon";
 import { IconPosition } from "$types/General";
+
 type Props = {
     children: string | number | React.ReactElement;
     iconSrc: string;

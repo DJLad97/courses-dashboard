@@ -1,15 +1,12 @@
 import Filters from '$molecules/Filters';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { filterCourses, getCategories, getCourses, getLocations } from '$lib/api';
-import { ApiResponse, Category, Course, FilteredCoursesRequest, Location } from "$types/Courses"
+import { Category, Course, FilteredCoursesRequest, Location } from "$types/Courses"
 import Table from '$organisms/Table';
 import TableLoadingSkeleton from '$atoms/TableLoadingSkeleton';
 import CategoriesList from '$organisms/CategoriesList';
 import { useEffectAfterMount } from '$lib/hooks';
-enum SearchType {
-    UNFILTERED = 'unfiltered',
-    FILTERED = 'filtered'
-}
+
 function TrainingCourses() {
     const [courses, setCourses] = useState<Array<Course>>([])
     const [categories, setCategories] = useState<Array<Category>>([])
@@ -22,7 +19,6 @@ function TrainingCourses() {
     const lastPageReached = useRef(false);
 
     useEffect(() => {
-        console.log('getting data')
         getCategoriesData();
         getLocationsData();
         getCoursesData();
@@ -75,8 +71,6 @@ function TrainingCourses() {
         getCourses(queryParams)
             .then((response) => {
                 if (response && !response.errors.length) {
-                    // setLastPagedReached(response.courses.last_page);
-                    // setCourses(courses.concat(response.courses.data));
                     setCourseData(courses.concat(response.courses.data), response.courses.last_page)
                 }
 
@@ -157,8 +151,6 @@ function TrainingCourses() {
     }
 
     const setLastPagedReached = (lastPage: number) => {
-        console.log('lastPage: ' + lastPage);
-        console.log('currentPage: ' + currentPage.current);
         lastPageReached.current = lastPage === currentPage.current;
     }
 
@@ -170,8 +162,6 @@ function TrainingCourses() {
                     <Filters
                         categories={categories}
                         locations={locations}
-                        requestData={requestData}
-                        searchWithFilters={searchWithFilters}
                         buildReqestData={buildReqestData}
                     />
                 </div>
