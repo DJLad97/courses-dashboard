@@ -13,7 +13,7 @@ function CategoriesList({ categories }: Props) {
             <div className="flex">
                 {
                     categories.map((category) => (
-                        <Card icon={cog} title={category.name} description={category.description} />
+                        <Card icon={cog} title={category.name} description={category.description} key={`${category.id}-card`}/>
                     ))
                 }
             </div>

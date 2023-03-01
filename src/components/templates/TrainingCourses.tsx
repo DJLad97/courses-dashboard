@@ -1,28 +1,31 @@
 import Filters from '$molecules/Filters';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { filterCourses, getCategories, getCourses, getLocations } from '$lib/api';
-import { Category, Course, FilteredCoursesRequest, Location } from "$types/Courses"
+import { ApiResponse, Category, Course, FilteredCoursesRequest, Location } from "$types/Courses"
 import Table from '$organisms/Table';
 import TableLoadingSkeleton from '$atoms/TableLoadingSkeleton';
-import Icon from '$atoms/Icon';
-import IconText from '$molecules/IconText';
-import cog from "$assets/icons/cog.png"
-import Card from '$molecules/Card';
-import laptop from "$assets/icons/laptop.png"
-import downloadPc from "$assets/icons/download-pc.png"
 import CategoriesList from '$organisms/CategoriesList';
-
+import { useEffectAfterMount } from '$lib/hooks';
+enum SearchType {
+    UNFILTERED = 'unfiltered',
+    FILTERED = 'filtered'
+}
 function TrainingCourses() {
     const [courses, setCourses] = useState<Array<Course>>([])
     const [categories, setCategories] = useState<Array<Category>>([])
     const [locations, setLocations] = useState<Array<Location>>([])
     const [loading, setLoading] = useState(false);
-    const pageCount = useRef(1);
+    const [requestData, setRequestData] = useState<FilteredCoursesRequest>({ categories: [], locations: []})
+
+    const error = useRef(false);
+    const currentPage = useRef(5);
+    const lastPageReached = useRef(false);
 
     useEffect(() => {
-        getCoursesData();
+        console.log('getting data')
         getCategoriesData();
         getLocationsData();
+        getCoursesData();
 
         return () => {
             setCourses([]);
@@ -31,46 +34,132 @@ function TrainingCourses() {
         }
     }, []);
 
+    useEffectAfterMount(() => {
+        if ((requestData.categories.length > 0 || requestData.locations.length > 0)) {
+            searchWithFilters();
+        } else {
+            getCoursesData();
+        }
+    }, [requestData])
+
     const getCategoriesData = () => {
         getCategories()
-            .then((response) => {
-                if (!response.errors.length) {
+        .then((response) => {
+                if (response && !response.errors.length) {
                     setCategories(categories.concat(response.courses.data));
                 }
-            });
+            })
+            .catch((e) => {
+                setLoading(false);
+                error.current = true;
+            })
     }
 
     const getLocationsData = () => {
         getLocations()
             .then((response) => {
-                if (!response.errors.length) {
+                if (response && !response.errors.length) {
                     setLocations(locations.concat(response.courses.data));
                 }
-            });
+            })
+            .catch((e) => {
+                setLoading(false);
+                error.current = true;
+            })
     }
 
     const getCoursesData = (queryParams: string = '') => {
+        console.log('getting courses')
         setLoading(true);
 
         getCourses(queryParams)
             .then((response) => {
-                if (!response.errors.length) {
-                    setCourses(courses.concat(response.courses.data));
+                if (response && !response.errors.length) {
+                    // setLastPagedReached(response.courses.last_page);
+                    // setCourses(courses.concat(response.courses.data));
+                    setCourseData(courses.concat(response.courses.data), response.courses.last_page)
                 }
 
                 setLoading(false);
-            });
+            })
+            .catch((e) => {
+                setLoading(false);
+                error.current = true;
+            })
+    }
+
+    const setCourseData = (courses: Array<Course>, lastPage: number) => {
+        setLastPagedReached(lastPage);
+        setCourses(courses);
     }
 
     const loadMore = () => {
-        pageCount.current++;
-        getCoursesData(`?page=${pageCount.current}`);
+        if (lastPageReached.current) {
+            return;
+        }
+
+        currentPage.current++;
+        const queryParams = `?page=${currentPage.current}`;
+
+        if (canPerformFilteredSearch()) {
+            searchWithFilters(queryParams, true);
+        } else {
+            getCoursesData(queryParams);
+        }
     }
 
-    const searchWithFilters = async (data: FilteredCoursesRequest) => {
-        const response = filterCourses(data);
-        console.log(response);
-        console.log(data)
+    const searchWithFilters = async (queryParams: string = '', loadMore: boolean = false) => {
+        console.log(requestData);
+        setLoading(true);
+
+        try {
+            const response = await filterCourses(requestData, queryParams);
+            if (response && !response.errors.length) {
+                setLastPagedReached(response.courses.last_page);
+
+                (loadMore) ?
+                    setCourseData(courses.concat(response.courses.data), response.courses.last_page) :
+                    setCourseData(response.courses.data, response.courses.last_page)
+
+            }
+        } catch (e) {
+            setLoading(false);
+            error.current = true;
+        }
+
+        setLoading(false);
+    }
+
+    const canPerformFilteredSearch = () => {
+        return requestData.locations.length > 0 || requestData.categories.length > 0;
+    }
+
+    const buildReqestData = (activeCategories: Array<number>, activeLocations: Array<number>) => {
+        const categoriesList: Array<string> = [];
+        const locationsList: Array<string> = [];
+
+        categories.forEach((category) => {
+            if (activeCategories.includes(category.id)) {
+                categoriesList.push(category.slug);
+            }
+        });
+
+        locations.forEach((location) => {
+            if (activeLocations.includes(location.id)) {
+                locationsList.push(location.slug);
+            }
+        });
+
+        setRequestData({
+            categories: categoriesList,
+            locations: locationsList
+        });
+    }
+
+    const setLastPagedReached = (lastPage: number) => {
+        console.log('lastPage: ' + lastPage);
+        console.log('currentPage: ' + currentPage.current);
+        lastPageReached.current = lastPage === currentPage.current;
     }
 
     return (
@@ -78,12 +167,25 @@ function TrainingCourses() {
             <div className="mx-10 mt-12">
                 <h1 className="text-neutral-900 text-5xl mb-8">Training Courses</h1>
                 <div className="mb-10">
-                    <Filters categories={categories} locations={locations} searchWithFilters={searchWithFilters }/>
+                    <Filters
+                        categories={categories}
+                        locations={locations}
+                        requestData={requestData}
+                        searchWithFilters={searchWithFilters}
+                        buildReqestData={buildReqestData}
+                    />
                 </div>
-                { !loading ?
-                    <div className="bg-white rounded-md max-w-fit">
-                        <Table data={courses} loadMore={() => loadMore()}/>
-                    </div> : <TableLoadingSkeleton />
+                { !error.current ?
+                    <>
+                        { !loading ?
+                            <div className="bg-white rounded-md max-w-fit">
+                                <Table data={courses} loadMore={() => loadMore()} lastPageReached={lastPageReached.current} />
+                            </div> : <TableLoadingSkeleton />
+                        }
+                    </> :
+                    <div>
+                        <h1 className="text-2xl text-primary-700">Something went wrong! Please try again</h1>
+                    </div>
                 }
                 <div className="mt-20 mb-96">
                     <CategoriesList categories={categories} />

@@ -4,6 +4,7 @@ import TableData from "$atoms/TableData";
 import IconText from '$molecules/IconText';
 import { IconPosition } from '$types/General';
 import diagonalUp from "$assets/icons/diagonal-up.png"
+import { formatDate } from "$lib/helpers";
 
 export default function generateTableData (data: Array<DataType>): Array<React.ReactElement> | undefined {
     if (!data.length) {
@@ -23,7 +24,7 @@ function generateCourses (courses: Array<Course>): Array<React.ReactElement> {
                 <TableData>{ course.id }</TableData>
                 <TableData>{ course.price }</TableData>
                 <TableData>{ course.location }</TableData>
-                <TableData>{ `${course.starts_at} - ${course.ends_at}` }</TableData>
+                <TableData>{ `${formatDate(course.starts_at)} - ${formatDate(course.ends_at)}` }</TableData>
                 <TableData>
                     <a className="flex gap-2" href={course.link}>
                         <IconText iconSrc={diagonalUp} iconPosition={IconPosition.RIGHT}>

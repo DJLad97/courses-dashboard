@@ -8,9 +8,10 @@ import { useState } from "react";
 type Props = {
     data: Array<DataType> | undefined;
     loadMore: () => void;
+    lastPageReached: boolean;
 }
 
-function Table ({ data, loadMore }: Props) {
+function Table ({ data, loadMore, lastPageReached }: Props) {
     const [noData, setNoData] = useState(false);
 
     const generateData = () => {
@@ -44,9 +45,17 @@ function Table ({ data, loadMore }: Props) {
             </table>
             <div className="flex justify-center py-12">
                 <span className="cursor-pointer flex gap-2 text-primary-800">
-                    <IconText iconSrc={chevronDown} iconPosition={IconPosition.RIGHT}>
-                        <span onClick={() => loadMore()}>Load More</span>
-                    </IconText>
+                    {
+                        data && data.length > 0 ?
+                        <>
+                            { !lastPageReached ?
+                                <IconText iconSrc={chevronDown} iconPosition={IconPosition.RIGHT}>
+                                    <span onClick={() => loadMore()}>Load More</span>
+                                </IconText> :
+                                <span>End of list</span>
+                            }
+                        </> : <span>No data available</span>
+                     }
                 </span>
             </div>
         </>

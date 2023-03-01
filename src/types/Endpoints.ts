@@ -1,4 +1,4 @@
-const baseUrl = "http://frontend-trial-api.qa.parallax.dev/api"
+const baseUrl = "https://frontend-trial-api.qa.parallax.dev/api"
 
 export const ENDPOINTS = {
     GET_COURSES: (queryParams: string = '') => `${baseUrl}/courses${queryParams}`,

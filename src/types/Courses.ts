@@ -4,7 +4,8 @@ export type ApiResponse<T> = {
     courses: {
         current_page: number;
         data: Array<T>
-    }
+        last_page: number;
+    },
 }
 
 export type FilteredCoursesRequest = {

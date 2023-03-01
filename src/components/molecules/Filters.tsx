@@ -1,12 +1,15 @@
 import FilterPill from "$atoms/FilterPill";
 import FilterTypes from "$atoms/FilterTypes";
+import { useEffectAfterMount } from "$lib/hooks";
 import { Category, FilteredCoursesRequest, Location } from "$types/Courses";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 type Props = {
+    requestData: FilteredCoursesRequest;
     categories: Array<Category>;
     locations: Array<Location>;
-    searchWithFilters: (data: FilteredCoursesRequest) => void;
+    searchWithFilters: () => void;
+    buildReqestData: (activeCategories: Array<number>, activeLocations: Array<number>) => void;
 }
 
 enum FilterType {
@@ -14,25 +17,15 @@ enum FilterType {
     LOCATION = 'location'
 }
 
-function Filters ({ categories, locations, searchWithFilters }: Props) {
+function Filters ({ requestData, categories, locations, searchWithFilters, buildReqestData }: Props) {
     const [activeCategories, setActiveCategories] = useState<Array<number>>([])
     const [activeLocations, setActiveLocations] = useState<Array<number>>([])
     const [activeFilterType, setActiveFilterType] = useState<FilterType>(FilterType.CATEGORY)
-    const [requestData, setRequestData] = useState<FilteredCoursesRequest>({ categories: [], locations: []})
+    const filtersClicked = useRef(false);
 
-    useEffect(() => {
-        buildReqestData();
+    useEffectAfterMount(() => {
+        buildReqestData(activeCategories, activeLocations);
     }, [activeCategories, activeLocations])
-
-    useEffect(() => {
-        /*
-         * API only accepts filters if there's a location
-         * so only perform request if we have a location selected
-         */
-        if (requestData.locations.length > 0) {
-            searchWithFilters(requestData);
-        }
-    }, [requestData])
 
     const buildCategories = () => {
         return categories.map((category) => {
@@ -55,6 +48,7 @@ function Filters ({ categories, locations, searchWithFilters }: Props) {
     }
 
     const toggleFilterPill = (filterArray: Array<number>, selected: number, type: string) => {
+        filtersClicked.current = true;
         const selectedFilter = filterArray.find(id => id === selected);
 
         if (selectedFilter) {
@@ -65,27 +59,27 @@ function Filters ({ categories, locations, searchWithFilters }: Props) {
         }
     }
 
-    const buildReqestData = () => {
-        const categoriesList: Array<string> = [];
-        const locationsList: Array<string> = [];
+    // const buildReqestData = () => {
+    //     const categoriesList: Array<string> = [];
+    //     const locationsList: Array<string> = [];
 
-        categories.forEach((category) => {
-            if (activeCategories.includes(category.id)) {
-                categoriesList.push(category.slug);
-            }
-        });
+    //     categories.forEach((category) => {
+    //         if (activeCategories.includes(category.id)) {
+    //             categoriesList.push(category.slug);
+    //         }
+    //     });
 
-        locations.forEach((location) => {
-            if (activeLocations.includes(location.id)) {
-                locationsList.push(location.slug);
-            }
-        });
+    //     locations.forEach((location) => {
+    //         if (activeLocations.includes(location.id)) {
+    //             locationsList.push(location.slug);
+    //         }
+    //     });
 
-        setRequestData({
-            categories: categoriesList,
-            locations: locationsList
-        });
-    }
+    //     setRequestData({
+    //         categories: categoriesList,
+    //         locations: locationsList
+    //     });
+    // }
 
 
     return (
