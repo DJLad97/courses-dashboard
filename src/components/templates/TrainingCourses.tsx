@@ -65,7 +65,6 @@ function TrainingCourses() {
     }
 
     const getCoursesData = (queryParams: string = '') => {
-        console.log('getting courses')
         setLoading(true);
 
         getCourses(queryParams)

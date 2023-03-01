@@ -7,8 +7,8 @@ function FilterTypes ({ text, active = false }: FilterProps) {
                 ${active ?
                     "text-neutral-900 " :
                     "text-neutral-300 " }
-                flex flex-col gap-y-1
-                border-spacing-1.5
+                    flex flex-col gap-y-1
+                    border-spacing-1.5
                 `}
             >
                 { text }
@@ -16,7 +16,8 @@ function FilterTypes ({ text, active = false }: FilterProps) {
                     ${active ?
                     "border-b-2 border-b-neutral-900" :
                     "border-b-2 border-b-neutral-300" }
-                min-w-[164px]`} />
+                    min-w-[164px]
+                `} />
             </div>
         </div>
     )
