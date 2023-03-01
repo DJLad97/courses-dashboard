@@ -67,10 +67,10 @@ function Filters ({ categories, locations, buildReqestData }: Props) {
                     <FilterTypes text="Location" active={activeFilterType === FilterType.LOCATION} />
                 </div>
             </div>
-            <div className={`flex gap-2 ${activeFilterType !== FilterType.CATEGORY ? "hidden" : ""}` }>
+            <div className={`flex gap-2 ${activeFilterType !== FilterType.CATEGORY ? "hidden" : ""}` } data-testid="category-filter">
                 { buildCategories() }
             </div>
-            <div className={`flex gap-2 ${activeFilterType !== FilterType.LOCATION ? "hidden" : ""}` }>
+            <div className={`flex gap-2 ${activeFilterType !== FilterType.LOCATION ? "hidden" : ""}` } data-testid="location-filter">
                 { buildLocations() }
             </div>
         </>
