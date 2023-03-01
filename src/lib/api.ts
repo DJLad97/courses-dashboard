@@ -8,7 +8,7 @@ import { ENDPOINTS } from '$types/Endpoints';
 // axios.defaults.headers["X-Requested-With"] = "XMLHttpRequest"
 
 export async function getCourses (queryParams: string = '') {
-    const response = await axios.get<ApiResponse<Course>>(ENDPOINTS.GET_COURSES());
+    const response = await axios.get<ApiResponse<Course>>(ENDPOINTS.GET_COURSES(queryParams));
 
     return response.data;
 }

@@ -1,17 +1,23 @@
 import Filters from '$molecules/Filters';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { filterCourses, getCategories, getCourses, getLocations } from '$lib/api';
 import { Category, Course, FilteredCoursesRequest, Location } from "$types/Courses"
 import Table from '$organisms/Table';
 import TableLoadingSkeleton from '$atoms/TableLoadingSkeleton';
 import Icon from '$atoms/Icon';
+import IconText from '$molecules/IconText';
+import cog from "$assets/icons/cog.png"
+import Card from '$molecules/Card';
+import laptop from "$assets/icons/laptop.png"
+import downloadPc from "$assets/icons/download-pc.png"
+import CategoriesList from '$organisms/CategoriesList';
 
 function TrainingCourses() {
     const [courses, setCourses] = useState<Array<Course>>([])
     const [categories, setCategories] = useState<Array<Category>>([])
     const [locations, setLocations] = useState<Array<Location>>([])
     const [loading, setLoading] = useState(false);
-    const [pageCount, setPageCount] = useState(1);
+    const pageCount = useRef(1);
 
     useEffect(() => {
         getCoursesData();
@@ -57,7 +63,8 @@ function TrainingCourses() {
     }
 
     const loadMore = () => {
-        getCoursesData('?page=2');
+        pageCount.current++;
+        getCoursesData(`?page=${pageCount.current}`);
     }
 
     const searchWithFilters = async (data: FilteredCoursesRequest) => {
@@ -76,9 +83,11 @@ function TrainingCourses() {
                 { !loading ?
                     <div className="bg-white rounded-md max-w-fit">
                         <Table data={courses} loadMore={() => loadMore()}/>
-                    </div> :
-                    <TableLoadingSkeleton />
+                    </div> : <TableLoadingSkeleton />
                 }
+                <div className="mt-20 mb-96">
+                    <CategoriesList categories={categories} />
+                </div>
             </div>
         </>
     )

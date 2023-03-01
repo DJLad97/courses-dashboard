@@ -22,7 +22,6 @@ function Filters ({ categories, locations, searchWithFilters }: Props) {
 
     useEffect(() => {
         buildReqestData();
-
     }, [activeCategories, activeLocations])
 
     useEffect(() => {
@@ -30,15 +29,15 @@ function Filters ({ categories, locations, searchWithFilters }: Props) {
          * API only accepts filters if there's a location
          * so only perform request if we have a location selected
          */
-        // if (requestData.locations.length > 0) {
-        searchWithFilters(requestData);
-        // }
+        if (requestData.locations.length > 0) {
+            searchWithFilters(requestData);
+        }
     }, [requestData])
 
     const buildCategories = () => {
         return categories.map((category) => {
             return (
-                <div onClick={() => toggleFilterPill(activeCategories, category.id, FilterType.CATEGORY)} key={category.id}>
+                <div onClick={() => toggleFilterPill(activeCategories, category.id, FilterType.CATEGORY)} key={`${category.id}-category`}>
                     <FilterPill text={category.name} active={activeCategories.includes(category.id)} />
                 </div>
             )
@@ -48,7 +47,7 @@ function Filters ({ categories, locations, searchWithFilters }: Props) {
     const buildLocations = () => {
         return locations.map((location) => {
             return (
-                <div onClick={() => toggleFilterPill(activeLocations, location.id, FilterType.LOCATION)} key={location.id}>
+                <div onClick={() => toggleFilterPill(activeLocations, location.id, FilterType.LOCATION)} key={`${location.id}-location`}>
                     <FilterPill text={location.name} active={activeLocations.includes(location.id)} />
                 </div>
             )
