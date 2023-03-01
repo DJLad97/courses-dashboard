@@ -13,10 +13,7 @@ export type FilteredCoursesRequest = {
     locations: Array<string>;
 }
 
-export type Course = {
-    id: number;
-    name: string;
-    slug: string;
+export type Course = CommonData & {
     course_id: string;
     location: string;
     category: string;
@@ -28,16 +25,15 @@ export type Course = {
     updated_at: string | null;
 }
 
-type FilteredData = {
+export type CommonData = {
     id: number;
     name: string;
     slug: string;
-
 }
 
-export type Category = FilteredData & {
+export type Category = CommonData & {
     description: string;
     icon: string;
 }
 
-export type Location = FilteredData;
+export type Location = CommonData;
