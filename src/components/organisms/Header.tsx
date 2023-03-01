@@ -1,4 +1,3 @@
-import searchIcon from '$assets/icons/search.png'
 import logo from '$assets/icons/Parallax_logo.png'
 import NavbarUserActions from '$molecules/NavbarUserActions';
 import NavbarSearch from '$molecules/NavbarSearch';

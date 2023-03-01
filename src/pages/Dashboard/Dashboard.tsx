@@ -4,6 +4,7 @@ import Header from '$organisms/Header';
 import Sidebar from '$organisms/Sidebar';
 import { getCourses } from '$lib/api';
 import { Course } from '$types/Courses';
+import Footer from '$organisms/Footer';
 
 function Dashboard () {
     return (
@@ -17,6 +18,7 @@ function Dashboard () {
             </div>
             <div className="bg-neutral-200">
                 {/* footer */}
+                <Footer />
             </div>
         </>
     )

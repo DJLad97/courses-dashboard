@@ -18,7 +18,7 @@ function TrainingCourses() {
     const [requestData, setRequestData] = useState<FilteredCoursesRequest>({ categories: [], locations: []})
 
     const error = useRef(false);
-    const currentPage = useRef(5);
+    const currentPage = useRef(1);
     const lastPageReached = useRef(false);
 
     useEffect(() => {
